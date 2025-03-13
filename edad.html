@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Edad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Edad</h2>
+    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+    <input type="date" id="fecha_nacimiento">
+    <br>
+    <label for="fecha_referencia">Fecha de referencia:</label>
+    <input type="date" id="fecha_referencia">
+    <br>
+    <button onclick="calcularEdad()">Calcular Edad</button>
+    <h3 id="resultado"></h3>
+
+    <script>
+        function calcularEdad() {
+            let fechaNacimiento = document.getElementById("fecha_nacimiento").value;
+            let fechaReferencia = document.getElementById("fecha_referencia").value;
+            
+            if (!fechaNacimiento || !fechaReferencia) {
+                document.getElementById("resultado").innerText = "Por favor, ingresa ambas fechas.";
+                return;
+            }
+            
+            let nacimiento = new Date(fechaNacimiento);
+            let referencia = new Date(fechaReferencia);
+            let edad = referencia.getFullYear() - nacimiento.getFullYear();
+            
+            if (referencia.getMonth() < nacimiento.getMonth() || 
+                (referencia.getMonth() === nacimiento.getMonth() && referencia.getDate() < nacimiento.getDate())) {
+                edad--;
+            }
+            
+            document.getElementById("resultado").innerText = `La edad en esa fecha será: ${edad} años.`;
+        }
+    </script>
+</body>
+</html>
